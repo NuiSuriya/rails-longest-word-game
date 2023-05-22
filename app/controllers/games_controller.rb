@@ -13,6 +13,7 @@ class GamesController < ApplicationController
     @word = params[:word].upcase
     @include = include?(@word, @letters)
     @english_word = english_word?(@word)
+    @scores = scores(@word, @letters)
   end
 
   private
@@ -25,5 +26,9 @@ class GamesController < ApplicationController
 
   def include?(word, letters)
     word.chars.all? { |letter| word.count(letter) <= letters.count(letter) }
+  end
+
+  def scores(word, letters)
+    letters.join.count(word)
   end
 end
